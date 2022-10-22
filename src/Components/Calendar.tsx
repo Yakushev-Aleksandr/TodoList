@@ -18,10 +18,10 @@ export default function Calendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs(date));
 
   // Получаем датту, это нам пригодиться для реакт роутер https://day.js.org/docs/ru/get-set/date
-  if (value) {
+  /* if (value) {
     console.log(value.date());
   }
-
+ */
   return (
     <CalendarStyled>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

@@ -1,5 +1,5 @@
 import React from "react";
-import DataToday from "./DataToday";
+import DateToday from "./DateToday";
 import Calendar from "./Calendar";
 import styled from "styled-components";
 
@@ -18,7 +18,7 @@ const HeaderWrapperStyled = styled.div<Props>`
 const Header: React.FC<Props> = ({ backgroundColor }: Props) => {
   return (
     <HeaderWrapperStyled backgroundColor={backgroundColor}>
-      <DataToday />
+      <DateToday />
       <Calendar />
     </HeaderWrapperStyled>
   );
