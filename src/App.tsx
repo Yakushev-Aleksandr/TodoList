@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "./Components/Header";
 import TodoInput from "./Components/TodoInput";
 import TodoItem from "./Components/TodoItem";
@@ -6,51 +6,33 @@ import CreatePortal from "./Components/CreatePortal";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { selectItem } from "./Features/textItem/item-slice";
 import { IItem } from "./Features/textItem/item-slice";
-/* import { textItemTEST } from "./Features/Item/textItem-slice"; */
 
 import {
   addItem,
-  /*  editItem, */
   deleteItem,
+  editItem,
   completedItem,
 } from "./Features/textItem/item-slice";
 
-/* interface ITodos {
-  id: number;
-  todo: string;
-  completed: boolean;
-} */
-
 const App: React.FC = () => {
-  const [todos, setTodos] = useState<IItem[]>([]);
   const [showEdit, setShowEdit] = useState<boolean>(false);
   const [edit, setEdit] = useState<string>("");
-
   const [editId, setEditId] = useState<number>();
   const [saveEdit, setSaveEdit] = useState<string>("");
-  /*   const [decorationText, setDecorationText] = useState<boolean>(false); */
-  const [todosEdit, setTodosEdit] = useState<string>("");
-  /*   const [textItem, setTextItem] = useState<string>(""); */
-  const dispatch = useAppDispatch();
-  const todo = useAppSelector(selectItem);
-  /*  console.log(todo); */
 
-  useEffect(() => {
-    setTodos(todo);
-  }, [todo]);
+  const dispatch = useAppDispatch();
 
   const addTodosHandler = (initialState: IItem) => {
-    console.log(initialState);
-    /*  setTextItem(initialState.todo); */
+    setEditId(initialState.id);
     dispatch(addItem(initialState));
   };
 
+  const todo = useAppSelector(selectItem);
+
   const editElementHandler = (initialState: IItem) => {
-    console.log("APP-edit");
-    console.log(initialState);
-    setShowEdit((previousState: boolean) => true);
+    setShowEdit((previousState: boolean) => !previousState);
     setEditId(initialState.id);
-    setTodosEdit(initialState.todo);
+
     setEdit(initialState.todo);
     setSaveEdit(initialState.todo);
   };
@@ -70,36 +52,23 @@ const App: React.FC = () => {
   };
 
   const saveShowHandler = () => {
-    console.log("saveShowHandler");
-    console.log(editId);
-    console.log(todosEdit);
-    console.log(todos);
-    console.log(edit);
+    if (editId) {
+      let id = editId;
+      let todo = edit;
+      dispatch(editItem({ id, todo }));
+    }
 
-    /*  dispatch(editItem(edit)); */
-
-    setShowEdit((previousState: boolean) => false);
+    setShowEdit((previousState: boolean) => !previousState);
   };
 
   //_________________________________________________________
 
-  const completedElementHandler = (
-    name: string,
-    id: number,
-    checked: boolean
-  ) => {
-    /*  setDecorationText((previousState) => !previousState); */
-    /* console.log(decorationText); */
-
-    let result = todos.find((item) => Number(name) === item.id);
-    if (result) {
-      console.log(result.completed);
-      result.completed = !result.completed;
-      console.log(result.completed);
-    }
+  const completedElementHandler = (id: number, checked: boolean) => {
+    let completed = checked;
+    dispatch(completedItem({ id, completed }));
   };
 
-  const elements = todos.map((element) => (
+  const elements = todo.map((element) => (
     <TodoItem
       editElement={editElementHandler}
       deleteElement={deleteElementHandler}
