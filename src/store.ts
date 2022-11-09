@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { itemSliceReducer } from "./Features/textItem/item-slice";
-/* import { textItemSliceReducer } from "./Features/Item/textItem-slice";
- */
+/* import { dateSliceReducer } from "./Features/Date/date-slice"; */
+
 export const store = configureStore({
   reducer: {
     item: itemSliceReducer,
-    /*   textItem: textItemSliceReducer, */
+    /* date: dateSliceReducer, */
   },
   devTools: true,
 });

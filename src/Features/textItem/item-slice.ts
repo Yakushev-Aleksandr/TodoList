@@ -6,6 +6,7 @@ export interface IItem {
   id: number;
   todo: string;
   completed: boolean;
+  date: string;
 }
 
 const initialState: IItem[] = [];
@@ -17,6 +18,7 @@ const itemSlice = createSlice({
     addItem: (state, actions: PayloadAction<IItem>) => {
       state.push(actions.payload);
     },
+
     editItem: (state, actions: PayloadAction<{ id: number; todo: string }>) => {
       state.find((item): number | string | undefined =>
         item.id === actions.payload.id ? (item.todo = actions.payload.todo) : ""
@@ -25,7 +27,7 @@ const itemSlice = createSlice({
     deleteItem: (state, actions: PayloadAction<IItem>) => {
       return state.filter((todo) => actions.payload.id !== todo.id);
     },
-    completedItem: (
+    completeItem: (
       state,
       actions: PayloadAction<{ id: number; completed: boolean }>
     ) => {
@@ -39,7 +41,7 @@ const itemSlice = createSlice({
 });
 
 export const itemSliceReducer = itemSlice.reducer;
-export const { addItem, deleteItem, completedItem, editItem } =
+export const { addItem, deleteItem, completeItem, editItem } =
   itemSlice.actions;
 
 export const selectItem = (state: RootState) => state.item;

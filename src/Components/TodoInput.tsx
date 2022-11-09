@@ -1,37 +1,44 @@
 import React from "react";
-import Button from "./Button";
+import ButtonWrapper from "./ButtonWrapper";
 import styled from "styled-components";
 import { useState } from "react";
 
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import SendIcon from "@mui/icons-material/Send";
+
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 const InputTodoWrapperStyled = styled.div`
   margin-top: 10px;
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
   justify-content: center;
   padding: 5px 0 5px 0;
-  & input {
-    width: 45%;
-    border: 1px solid blue;
-    border-radius: 5px;
-    box-shadow: 3px 3px 1px 1px rgba(0, 0, 255, 0.2);
-  }
 `;
 
 export interface ITodos {
   id: number;
   todo: string;
   completed: boolean;
+  date: string;
 }
 
 interface IInputTodo {
   dateInput: (Todos: ITodos) => void;
+  selectDate: string;
 }
 let newId: number = 0;
-const TodoInput: React.FC<IInputTodo> = ({ dateInput }): JSX.Element => {
+const TodoInput: React.FC<IInputTodo> = ({
+  dateInput,
+  selectDate,
+}): JSX.Element => {
   const Todos = {
     id: 0,
     todo: "",
     completed: true,
+    date: "",
   };
 
   const [newTodo, setNewTodo] = useState<string>("");
@@ -45,7 +52,7 @@ const TodoInput: React.FC<IInputTodo> = ({ dateInput }): JSX.Element => {
     if (newTodo) {
       Todos.id = newId;
       Todos.todo = newTodo;
-
+      Todos.date = selectDate;
       dateInput(Todos);
 
       setNewTodo("");
@@ -56,10 +63,32 @@ const TodoInput: React.FC<IInputTodo> = ({ dateInput }): JSX.Element => {
 
   return (
     <InputTodoWrapperStyled>
-      <input type="text" value={newTodo} onChange={dateInputHandler} />
-      <Button backgroundColor="#33ff00" userActions={addNewTodoHandler}>
-        Add new item
-      </Button>
+      <Box
+        sx={{
+          width: "80%",
+          maxWidth: "100%",
+          marginRight: "15px",
+        }}
+      >
+        <TextField
+          sx={{
+            marginRight: "15px",
+          }}
+          type="text"
+          value={newTodo}
+          onChange={dateInputHandler}
+          fullWidth
+          label="I will do it"
+          id="fullWidth"
+        />
+      </Box>
+      <ButtonWrapper userActions={addNewTodoHandler}>
+        <Stack direction="row" spacing={2}>
+          <Button variant="contained" endIcon={<SendIcon />}>
+            Add new item
+          </Button>
+        </Stack>
+      </ButtonWrapper>
     </InputTodoWrapperStyled>
   );
 };
