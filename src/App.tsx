@@ -1,18 +1,21 @@
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Elements from "./Components/Elements";
 import Header from "./Components/Header";
-import InputTodo from "./Components/InputTodo";
-import TodoList from "./Components/TodoList";
 
 const App: React.FC = () => {
   return (
-    <div>
-      <Header backgroundColor="red" />
-      <InputTodo />
-      <hr></hr>
-      <TodoList />
-      <TodoList />
-      <TodoList />
-      <TodoList />
-    </div>
+    <>
+      <div>
+        <Header />
+        <hr></hr>
+        <div>
+          <Routes>
+            <Route path="/:selectDate" element={<Elements />} />
+          </Routes>
+        </div>
+      </div>
+    </>
   );
 };
 

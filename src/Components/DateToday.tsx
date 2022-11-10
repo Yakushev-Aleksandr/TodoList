@@ -1,15 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const DataTodayStyled = styled.div`
+const DateTodayStyled = styled.div`
   margin: 10px 10px 10px 10px;
   font-size: 18px;
 `;
 
-const DataToday: React.FC = () => {
+const DateToday: React.FC = () => {
   let date: Date = new Date();
 
-  var options: Intl.DateTimeFormatOptions = {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -17,8 +17,8 @@ const DataToday: React.FC = () => {
   };
 
   return (
-    <DataTodayStyled> {date.toLocaleString("ru", options)} </DataTodayStyled>
+    <DateTodayStyled> {date.toLocaleString("ru", options)} </DateTodayStyled>
   );
 };
 
-export default DataToday;
+export default DateToday;

@@ -1,26 +1,66 @@
 import React from "react";
-import DataToday from "./DataToday";
+import DateToday from "./DateToday";
 import Calendar from "./Calendar";
+import SelectedDate from "./SelectedDate";
 import styled from "styled-components";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
-type Props = {
-  backgroundColor: string;
-};
-
-const HeaderWrapperStyled = styled.div<Props>`
+const HeaderWrapperStyled = styled.div`
   display: flex;
+  width: 100%;
   flex-wrap: nowrap;
   justify-content: space-between;
-  background-color: ${(props) => props.backgroundColor};
-  padding: 5px 0 5px 0;
 `;
 
-const Header: React.FC<Props> = ({ backgroundColor }: Props) => {
+const Header: React.FC = () => {
   return (
-    <HeaderWrapperStyled backgroundColor={backgroundColor}>
-      <DataToday />
-      <Calendar />
-    </HeaderWrapperStyled>
+    <div>
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            <HeaderWrapperStyled>
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "Georgia, serif",
+                  fontWeight: 700,
+                  letterSpacing: "normal",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                <DateToday />
+              </Typography>
+
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "Georgia, serif",
+                  fontWeight: 700,
+                  letterSpacing: "normal",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                <SelectedDate />
+              </Typography>
+              <Calendar />
+            </HeaderWrapperStyled>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
   );
 };
 

@@ -1,0 +1,13 @@
+{
+  "posts": [
+    { "id": 1, "title": "json-server", "author": "typicode" },
+    { "id": 2, "title": "Yakushev Alexandr", "author": "typicode" },
+    { "id": 3, "title": "Sanya", "author": "typicode" }
+  ],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 },
+    { "id": 2, "body": "Yakushev Alexandr Sanya", "postId": 1 }
+  ],
+  "profile": { "name": "typicode" },
+  "test": { "name": "SANYA" }
+}
